@@ -1,13 +1,15 @@
 
 package = $(shell basename $$PWD)
 extras = [test]
+options =
 
 bootstrap_url = svn://svn.zope.org/repos/main/zc.buildout/trunk/bootstrap/bootstrap.py
 plonetest_url = http://svn.plone.org/svn/collective/buildout/plonetest
 buildout_options = buildout:package-name=$(package) \
                    buildout:package-extras=$(extras) \
                    buildout:develop=$(PWD) \
-                   versions:$(package)=
+                   versions:$(package)= \
+                   $(options)
 
 all: tests-4.1
 
