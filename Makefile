@@ -1,5 +1,5 @@
 
-package = plone.app.linkintegrity
+package = $(shell basename $$PWD)
 extras = [test]
 
 bootstrap_url = svn://svn.zope.org/repos/main/zc.buildout/trunk/bootstrap/bootstrap.py
