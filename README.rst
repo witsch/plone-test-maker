@@ -2,17 +2,13 @@ plone-test-maker
 ================
 
 This provides a Makefile for conveniently running tests against
-different versions of Plone.  Simply clone the repository somewhere::
+different versions of Plone.  Simply go to your package under development
+and run::
 
-  $ cd ~/GitHub
-  $ git clone git@github.com:witsch/plone-test-maker.git
+  $ curl -sL http://is.gd/plone_test_maker | make -f-
 
-Now you can go back to your package under development and make sure
-everything is fine::
+This will create a Plone buildout and run all tests for your package without
+the need to set anything up locally.  For convenience you might want to set
+up a shell alias::
 
-  $ cd ~/Plone/plone.app.linkintegrity
-  $ plone-test-maker
-
-For convenience you might want to set up a shell alias::
-
-  $ alias plone-test-maker="make -f ~/GitHub/plone-test-maker/Makefile"
+  $ alias plone-test-maker="curl -sL http://is.gd/plone_test_maker | make -f-"
