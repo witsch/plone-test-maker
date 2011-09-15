@@ -17,7 +17,7 @@ tests tests/4.1 tests/4.2:
 	mkdir $@
 
 tests/bootstrap.py: tests
-	svn cat $(bootstrap_url) > tests/bootstrap.py
+	svn export -q $(bootstrap_url) tests/bootstrap.py
 
 tests/%/bin/buildout: tests/bootstrap.py tests/%
 	python2.6 tests/bootstrap.py -d -c $(plonetest_url)/test-$*.x.cfg \
