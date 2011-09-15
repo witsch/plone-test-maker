@@ -20,7 +20,7 @@ tests/bootstrap.py: tests
 	svn cat $(bootstrap_url) > tests/bootstrap.py
 
 tests/%/bin/buildout: tests/bootstrap.py tests/%
-	python2.6 tests/bootstrap.py -c $(plonetest_url)/test-$*.x.cfg \
+	python2.6 tests/bootstrap.py -d -c $(plonetest_url)/test-$*.x.cfg \
 		buildout:directory=$(PWD)/tests/$* \
 		$(buildout_args)
 
