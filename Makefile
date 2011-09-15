@@ -32,3 +32,4 @@ clean:
 	rm -rf tests
 
 .PHONY: all clean tests-%
+.PRECIOUS: tests/%/bin/buildout tests/%/bin/test
