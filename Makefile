@@ -21,10 +21,14 @@ tests/bootstrap.py: tests
 	svn cat $(bootstrap_url) > tests/bootstrap.py
 
 tests/%/bin/buildout: tests/bootstrap.py tests/%
-	python2.6 tests/bootstrap.py -c $(plonetest_url)/test-$*.x.cfg $(buildout_options) buildout:directory=$(PWD)/tests/$*
+	python2.6 tests/bootstrap.py -c $(plonetest_url)/test-$*.x.cfg \
+		buildout:directory=$(PWD)/tests/$* \
+		$(buildout_options)
 
 tests/%/bin/test: tests/%/bin/buildout
-	tests/$*/bin/buildout -c $(plonetest_url)/test-$*.x.cfg $(buildout_options) buildout:directory=$(PWD)/tests/$*
+	tests/$*/bin/buildout -c $(plonetest_url)/test-$*.x.cfg \
+		buildout:directory=$(PWD)/tests/$* \
+		$(buildout_options)
 
 tests-%: tests/%/bin/test
 	tests/$*/bin/test $(test_options)
