@@ -2,6 +2,7 @@
 package = $(shell basename $$PWD)
 extras = [test]
 options =
+test_options = --quiet --progress
 
 bootstrap_url = svn://svn.zope.org/repos/main/zc.buildout/trunk/bootstrap/bootstrap.py
 plonetest_url = http://svn.plone.org/svn/collective/buildout/plonetest
@@ -26,7 +27,7 @@ tests/%/bin/test: tests/%/bin/buildout
 	tests/$*/bin/buildout -c $(plonetest_url)/test-$*.x.cfg $(buildout_options) buildout:directory=$(PWD)/tests/$*
 
 tests-%: tests/%/bin/test
-	tests/$*/bin/test -v
+	tests/$*/bin/test $(test_options)
 
 clean:
 	rm -rf tests
