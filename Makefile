@@ -29,6 +29,7 @@ tests/%/bin/test: tests/%/bin/buildout
 		$(buildout_args) $(buildout_options)
 
 tests-%: tests/%/bin/test
+	@echo 'testing $(package) against Plone $* ...'
 	tests/$*/bin/test $(test_options)
 
 clean:
