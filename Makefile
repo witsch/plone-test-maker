@@ -11,7 +11,7 @@ buildout_args = buildout:package-name=$(package) \
                 buildout:develop=$(PWD) \
                 versions:$(package)=
 
-all: tests-4.1 tests-4.2
+all: 4.1 4.2
 
 tests/bootstrap.py:
 	mkdir -p tests
@@ -28,12 +28,12 @@ tests/%/bin/test: tests/%/bin/buildout
 		buildout:directory=$(PWD)/tests/$* \
 		$(buildout_args) $(buildout_options)
 
-tests-%: tests/%/bin/test
+%: tests/%/bin/test
 	@echo 'testing $(package) against Plone $* ...'
 	tests/$*/bin/test $(test_options)
 
 clean:
 	rm -rf tests
 
-.PHONY: all clean tests-%
+.PHONY: all clean %
 .PRECIOUS: tests/%/bin/buildout tests/%/bin/test
