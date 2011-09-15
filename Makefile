@@ -11,24 +11,24 @@ buildout_options = buildout:package-name=$(package) \
                    versions:$(package)= \
                    $(options)
 
-all: tests-4.1
+all: tests-4.1 tests-4.2
 
-tests tests/4.1:
+tests tests/4.1 tests/4.2:
 	mkdir $@
 
 tests/bootstrap.py: tests
 	svn cat $(bootstrap_url) > tests/bootstrap.py
 
-tests/4.1/bin/buildout: tests/bootstrap.py tests/4.1
-	python2.6 tests/bootstrap.py -c $(plonetest_url)/test-4.1.x.cfg $(buildout_options) buildout:directory=$(PWD)/tests/4.1
+tests/%/bin/buildout: tests/bootstrap.py tests/%
+	python2.6 tests/bootstrap.py -c $(plonetest_url)/test-$*.x.cfg $(buildout_options) buildout:directory=$(PWD)/tests/$*
 
-tests/4.1/bin/test: tests/4.1/bin/buildout
-	tests/4.1/bin/buildout -c $(plonetest_url)/test-4.1.x.cfg $(buildout_options) buildout:directory=$(PWD)/tests/4.1
+tests/%/bin/test: tests/%/bin/buildout
+	tests/$*/bin/buildout -c $(plonetest_url)/test-$*.x.cfg $(buildout_options) buildout:directory=$(PWD)/tests/$*
 
-tests-4.1: tests/4.1/bin/test
-	tests/4.1/bin/test -v
+tests-%: tests/%/bin/test
+	tests/$*/bin/test -v
 
 clean:
 	rm -rf tests
 
-.PHONY: all tests-4.1 clean
+.PHONY: all clean tests-%
