@@ -31,6 +31,9 @@ tests/%/bin/test: setup.py tests/%/bin/buildout
 		$(buildout_args) $(buildout_options)
 	touch $@
 
+setup.py:
+	$(error `setup.py` is required, please run from your package directory...)
+
 $(versions): %: tests/%/bin/test
 	@echo 'testing $(package) against Plone $* ...'
 	tests/$*/bin/test $(test_options)
