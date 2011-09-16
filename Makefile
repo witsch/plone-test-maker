@@ -14,9 +14,12 @@ buildout_args = buildout:package-name=$(package) \
                 buildout:develop=$(PWD) \
                 versions:$(package)=
 
-versions = 4.0 4.1 4.2
+versions = 3.3 4.0 4.1 4.2
 
 all: $(versions)
+
+3.%: python = python2.4
+4.%: python = python2.6
 
 $(bootstrap):
 	mkdir -p $(test_dir)
@@ -24,7 +27,7 @@ $(bootstrap):
 
 $(test_dir)/%/bin/buildout: $(bootstrap)
 	mkdir -p $(test_dir)/$*
-	python2.6 $(bootstrap) -d -c $(plonetest_url)/test-$*.x.cfg \
+	$(python) $(bootstrap) -d -c $(plonetest_url)/test-$*.x.cfg \
 		buildout:directory=$(PWD)/$(test_dir)/$* \
 		$(buildout_args)
 
