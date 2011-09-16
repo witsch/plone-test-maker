@@ -11,7 +11,7 @@ buildout_args = buildout:package-name=$(package) \
                 buildout:develop=$(PWD) \
                 versions:$(package)=
 
-versions = 4.1 4.2
+versions = 4.0 4.1 4.2
 
 all: $(versions)
 
