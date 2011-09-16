@@ -51,3 +51,4 @@ clean:
 
 .PHONY: all clean %
 .PRECIOUS: $(test_dir)/%/bin/buildout $(test_dir)/%/bin/test
+.IGNORE: $(versions)
