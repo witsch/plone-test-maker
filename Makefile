@@ -29,6 +29,7 @@ tests/%/bin/test: setup.py tests/%/bin/buildout
 	tests/$*/bin/buildout -c $(plonetest_url)/test-$*.x.cfg \
 		buildout:directory=$(PWD)/tests/$* \
 		$(buildout_args) $(buildout_options)
+	touch $@
 
 $(versions): %: tests/%/bin/test
 	@echo 'testing $(package) against Plone $* ...'
