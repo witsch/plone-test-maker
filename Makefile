@@ -1,6 +1,7 @@
 
 package = $(shell python setup.py --name)
-extras = [test]
+requires = $(package).egg-info/requires.txt
+extras = $(shell python setup.py --quiet egg_info && grep '^\[tests*\]' $(requires))
 buildout_options = -q
 test_options = --quiet --progress
 
