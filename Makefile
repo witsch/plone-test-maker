@@ -5,6 +5,7 @@ extras = $(shell python setup.py --quiet egg_info && grep '^\[tests*\]' $(requir
 buildout_options = -q
 test_options = --quiet --progress
 test_dir = test_builds
+bootstrap = $(test_dir)/bootstrap.py
 
 bootstrap_url = svn://svn.zope.org/repos/main/zc.buildout/trunk/bootstrap/bootstrap.py
 plonetest_url = http://svn.plone.org/svn/collective/buildout/plonetest
@@ -17,13 +18,13 @@ versions = 4.0 4.1 4.2
 
 all: $(versions)
 
-$(test_dir)/bootstrap.py:
+$(bootstrap):
 	mkdir -p $(test_dir)
-	svn export -q $(bootstrap_url) $(test_dir)/bootstrap.py
+	svn export -q $(bootstrap_url) $(bootstrap)
 
-$(test_dir)/%/bin/buildout: $(test_dir)/bootstrap.py
+$(test_dir)/%/bin/buildout: $(bootstrap)
 	mkdir -p $(test_dir)/$*
-	python2.6 $(test_dir)/bootstrap.py -d -c $(plonetest_url)/test-$*.x.cfg \
+	python2.6 $(bootstrap) -d -c $(plonetest_url)/test-$*.x.cfg \
 		buildout:directory=$(PWD)/$(test_dir)/$* \
 		$(buildout_args)
 
