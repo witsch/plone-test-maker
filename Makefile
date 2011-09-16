@@ -25,7 +25,7 @@ tests/%/bin/buildout: tests/bootstrap.py
 		buildout:directory=$(PWD)/tests/$* \
 		$(buildout_args)
 
-tests/%/bin/test: tests/%/bin/buildout
+tests/%/bin/test: setup.py tests/%/bin/buildout
 	tests/$*/bin/buildout -c $(plonetest_url)/test-$*.x.cfg \
 		buildout:directory=$(PWD)/tests/$* \
 		$(buildout_args) $(buildout_options)
