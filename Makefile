@@ -4,6 +4,7 @@ requires = $(package).egg-info/requires.txt
 extras = $(shell python setup.py --quiet egg_info && grep '^\[tests*\]' $(requires))
 buildout_options = -q
 test_options = --quiet --progress
+test_dir = tests
 
 bootstrap_url = svn://svn.zope.org/repos/main/zc.buildout/trunk/bootstrap/bootstrap.py
 plonetest_url = http://svn.plone.org/svn/collective/buildout/plonetest
@@ -16,31 +17,31 @@ versions = 4.0 4.1 4.2
 
 all: $(versions)
 
-tests/bootstrap.py:
-	mkdir -p tests
-	svn export -q $(bootstrap_url) tests/bootstrap.py
+$(test_dir)/bootstrap.py:
+	mkdir -p $(test_dir)
+	svn export -q $(bootstrap_url) $(test_dir)/bootstrap.py
 
-tests/%/bin/buildout: tests/bootstrap.py
-	mkdir -p tests/$*
-	python2.6 tests/bootstrap.py -d -c $(plonetest_url)/test-$*.x.cfg \
-		buildout:directory=$(PWD)/tests/$* \
+$(test_dir)/%/bin/buildout: $(test_dir)/bootstrap.py
+	mkdir -p $(test_dir)/$*
+	python2.6 $(test_dir)/bootstrap.py -d -c $(plonetest_url)/test-$*.x.cfg \
+		buildout:directory=$(PWD)/$(test_dir)/$* \
 		$(buildout_args)
 
-tests/%/bin/test: setup.py tests/%/bin/buildout
-	tests/$*/bin/buildout -c $(plonetest_url)/test-$*.x.cfg \
-		buildout:directory=$(PWD)/tests/$* \
+$(test_dir)/%/bin/test: setup.py $(test_dir)/%/bin/buildout
+	$(test_dir)/$*/bin/buildout -c $(plonetest_url)/test-$*.x.cfg \
+		buildout:directory=$(PWD)/$(test_dir)/$* \
 		$(buildout_args) $(buildout_options)
 	touch $@
 
 setup.py:
 	$(error `setup.py` is required, please run from your package directory...)
 
-$(versions): %: tests/%/bin/test
+$(versions): %: $(test_dir)/%/bin/test
 	@echo 'testing $(package) against Plone $* ...'
-	tests/$*/bin/test $(test_options)
+	$(test_dir)/$*/bin/test $(test_options)
 
 clean:
-	rm -rf tests
+	rm -rf $(test_dir)
 
 .PHONY: all clean %
-.PRECIOUS: tests/%/bin/buildout tests/%/bin/test
+.PRECIOUS: $(test_dir)/%/bin/buildout $(test_dir)/%/bin/test
