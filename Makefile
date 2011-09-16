@@ -4,7 +4,7 @@ requires = $(package).egg-info/requires.txt
 extras = $(shell python setup.py --quiet egg_info && grep '^\[tests*\]' $(requires))
 buildout_options = -q
 test_options = --quiet --progress
-test_dir = tests
+test_dir = test_builds
 
 bootstrap_url = svn://svn.zope.org/repos/main/zc.buildout/trunk/bootstrap/bootstrap.py
 plonetest_url = http://svn.plone.org/svn/collective/buildout/plonetest
