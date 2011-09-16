@@ -1,3 +1,5 @@
+# makefile to conveniently run tests against different versions of Plone
+# please see README.rst for more information
 
 package = $(shell python setup.py --name)
 requires = $(package).egg-info/requires.txt
