@@ -1,5 +1,5 @@
 
-package = $(shell basename $$PWD)
+package = $(shell python setup.py --name)
 extras = [test]
 buildout_options = -q
 test_options = --quiet --progress
