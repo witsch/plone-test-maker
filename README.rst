@@ -38,6 +38,10 @@ or override default values:
 
   $ plone-test-maker 3.3 4.1
 
+- run tests in parallel::
+
+  $ plone-test-maker -j
+
 - explicitly set the package name::
 
   $ plone-test-maker package=plone.app.foo
