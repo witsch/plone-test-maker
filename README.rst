@@ -34,14 +34,26 @@ Options
 There are several command line options available to only run individual tests
 or override default values:
 
-- only test againsts specific versions: `plone-test-maker 3.3 4.1`
+- only test againsts specific versions::
 
-- explicitly set the package name: `plone-test-maker package=plone.app.foo`
+  $ plone-test-maker 3.3 4.1
 
-- specify `buildout` options: `plone-test-maker buildout_options=-v`
+- explicitly set the package name::
 
-- specify test runner options: `plone-test-maker test_options=--unit`
+  $ plone-test-maker package=plone.app.foo
 
-- set the directory used for the buildouts: `plone-test-maker test_dir=foo`
+- specify `buildout` options::
 
-- remove all test buildouts: `plone-test-maker clean`
+  $ plone-test-maker buildout_options=-v
+
+- specify test runner options::
+
+  $ plone-test-maker test_options=--unit
+
+- set the directory used for the buildouts::
+
+  $ plone-test-maker test_dir=foo
+
+- remove all test buildouts::
+
+  $ plone-test-maker clean
